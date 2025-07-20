@@ -1,7 +1,7 @@
 old=[' ',' ','O']
 
 def old_list(game):
-    print(f"the  list is :{game}")
+    print(f"The list is: {game}")
 
 from random import shuffle
 
@@ -10,38 +10,42 @@ def shuf(game):
     return game
 
 def player_choise():
-    index='a'
+    index = 'a'
     while index not in ['0','1','2']:
-        index=input("you options are [0,1,2] pick one : ")
+        index = input("Your options are [0, 1, 2]. Pick one: ")
     return int(index)
 
-def check(game,choise):
-    if(game[choise]=='O'):
-        print("you win")
+def check(game, choise):
+    if game[choise] == 'O':
+        print("🎉 You win!")
     else:
-        print("you loss")
-
+        print("❌ You lose!")
 
 def play():
-    opp='a'
+    opp = 'a'
     while opp not in ['Y','N']:
-        opp=input("Did you want to play again (Y or N): ")
-
+        opp = input("Do you want to play? (Y or N): ").upper()
         if opp not in ['Y','N']:
-            print("invalid choise")
-    if (opp=='Y'):
-        print("the game start now ")
+            print("Invalid choice")
+
+    if opp == 'Y':
+        print("🎮 The game starts now!")
         print("The rules are simple:")
-        print("you want to find the O it can be in any index position and you can select one index position then if it matches you won go and enjoy it")
-        start=True
-        old=[' ',' ','O']
+        print("Guess where the 'O' is hiding among three positions [0, 1, 2].")
+
+        start = True
+        old = [' ', ' ', 'O']
         while start:
-            old_list(old)
-            old=shuf(old)
-            index=player_choise()
-            check(old,index)
-            old_list(old)
-            start=play()
-    else :
-        return False         
-        
+            old_list(['?', '?', '?'])  # Hide real values
+            old = shuf(old)
+            index = player_choise()
+            check(old, index)
+            old_list(old)  # Show where 'O' was
+            start = play()  # Recurse
+
+    else:
+        print("Thanks for playing!")
+        return False
+
+# 🟢 Start the game here
+play()
